@@ -8,24 +8,29 @@ use Tests\DuskTestCase;
 
 class CreateAccountTest extends DuskTestCase
 {
+    // use DatabaseMigrations;
     /**
-     * A Dusk test example.
+     * @group register
+     * Test register functionality
      */
     public function testExample(): void
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/')
-                    ->assertSee('Modul 3')
+            $browser->visit('http://127.0.0.1:8000/')
+                    ->assertSee('Enterprise')
                     ->clickLink('Register')
                     ->assertPathIs('/register')
-                    ->screenshot('register-form')
-                    ->type('name', 'Test User')
-                    ->type('email', 'testuser'.time().'@example.com') // Unique email
+                    ->type('name', 'nuel')
+                    ->type('email', 'nuel@example.com') // Unique email
                     ->type('password', 'password')
                     ->type('password_confirmation', 'password')
-                    ->press('button[type="submit"]')
+                    ->press('REGISTER')
                     ->assertPathIs('/dashboard')
-                    ->screenshot('registration-success');
+                    ->screenshot('registration-success')
+                    ->click('#click-dropdown')
+                    ->clickLink('Log Out')
+                    ->assertSee('Enterprise')
+                    ->screenshot('final-registration');
         });
     }
 }
